@@ -1,0 +1,40 @@
+# Instalar
+uv add alembic
+
+# Iniciar
+uv run alembic init alembic
+
+
+# Configs ( env.py )
+
+# URL de conexao do alembic
+# ajustar alembic.ini
+# database URL. Overridden at runtime in env.py with settings.database_url
+# (from app.core.config), which reads DATABASE_URL from the environment/.env.
+sqlalchemy.url = driver://user:pass@localhost/dbname
+
+# Ele le o alembic/env.py
+# Esse importa as configuracoes...
+
+from app.core.config import settings
+config.set_main_option("sqlalchemy.url", settings.database_url)
+
+# Em app/core/config.py 
+# Define-se a string de conexao
+class Settings(BaseSettings):
+    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/retornos"
+
+
+# Auto generate migrate
+# Preciso importar isso dentro do meu 
+from app.db.base import Base
+
+# Cria ela vazia se nao tiver o modelo importado
+alembic revision --autogenerate -m "Um comentario da minha migrate"
+
+# Preciso importar os modelos 
+from app.models import *
+
+# Aplicar
+alembic upgrade head
+alembic downgrade -1

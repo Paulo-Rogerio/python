@@ -1,0 +1,6 @@
+✔ Python (Microsoft)
+✔ Black Formatter
+✔ pylance
+✔ autoDocstring - Python Docstring Generator
+✔ GitLens
+✔ Python Indent

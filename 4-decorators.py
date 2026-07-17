@@ -30,3 +30,24 @@ def nome(nome):
 nome("Paulo")
 
 ###########################################################################
+
+import time
+
+def calcula_duracao(fun):
+
+    def wrapper():
+
+        tempo_inicial = time.time()
+        fun()
+        tempo_final = time.time()
+
+        print("[{fun}] Tempo total de execução: {tempo_total}".format(fun=fun.__name__,tempo_total=str(tempo_final - tempo_inicial)))
+    
+    return wrapper
+
+@calcula_duracao
+def funcao_loop():
+    for n in range(0, 700000):
+        pass
+
+funcao_loop()
